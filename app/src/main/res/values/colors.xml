@@ -2,55 +2,9 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-
-    <!-- Primary - Indigo -->
-    <color name="primary">#6366F1</color>
-    <color name="primary_dark">#4F46E5</color>
-    <color name="primary_light">#A5B4FC</color>
-    <color name="primary_container">#E0E7FF</color>
-    <color name="on_primary">#FFFFFF</color>
-
-    <!-- Secondary - Teal -->
-    <color name="secondary">#14B8A6</color>
-    <color name="secondary_dark">#0D9488</color>
-    <color name="secondary_light">#99F6E4</color>
-    <color name="secondary_container">#CCFBF1</color>
-    <color name="on_secondary">#FFFFFF</color>
-
-    <!-- Accent - Amber -->
-    <color name="accent">#F59E0B</color>
-    <color name="accent_light">#FDE68A</color>
-
-    <!-- Backgrounds Light -->
-    <color name="background">#F8FAFC</color>
-    <color name="surface">#FFFFFF</color>
-    <color name="surface_variant">#F1F5F9</color>
-    <color name="surface_container">#E2E8F0</color>
-    <color name="outline">#CBD5E1</color>
-
-    <!-- Backgrounds Dark -->
-    <color name="background_dark">#0F172A</color>
-    <color name="surface_dark">#1E293B</color>
-    <color name="surface_variant_dark">#334155</color>
-    <color name="surface_container_dark">#475569</color>
-    <color name="outline_dark">#475569</color>
-
-    <!-- Text -->
-    <color name="text_primary">#0F172A</color>
-    <color name="text_secondary">#64748B</color>
-    <color name="text_tertiary">#94A3B8</color>
-    <color name="text_on_dark">#F8FAFC</color>
-    <color name="text_on_dark_secondary">#94A3B8</color>
-
-    <!-- Semantic -->
-    <color name="success">#22C55E</color>
-    <color name="success_container">#BBF7D0</color>
-    <color name="error">#EF4444</color>
-    <color name="error_container">#FEE2E2</color>
-    <color name="error_dark">#F87171</color>
-
-    <!-- LED -->
-    <color name="led_on">#F59E0B</color>
-    <color name="led_on_container">#FEF3C7</color>
-    <color name="led_off">#64748B</color>
+    <color name="primary">#1976D2</color>
+    <color name="primary_dark">#1565C0</color>
+    <color name="secondary_text">#757575</color>
+    <color name="btn_on">#4CAF50</color>
+    <color name="btn_off">#F44336</color>
 </resources>

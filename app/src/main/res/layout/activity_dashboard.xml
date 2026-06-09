@@ -8,81 +8,55 @@
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/toolbar_height"
-        android:background="@drawable/bg_gradient_toolbar"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/primary"
         app:title="@string/dashboard_title"
         app:titleTextColor="@android:color/white"
-        app:titleTextAppearance="@style/TextAppearance.Domotica.ToolbarTitle"
-        app:menu="@menu/menu_dashboard"
-        app:popupTheme="@style/ThemeOverlay.Material3.Dark" />
+        app:menu="@menu/menu_dashboard" />
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="@dimen/spacing_lg"
-        android:clipToPadding="false">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="16dp">
 
             <ProgressBar
                 android:id="@+id/progressBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:visibility="gone"
-                android:indeterminateTint="@color/primary" />
+                android:visibility="gone" />
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/spacing_lg"
-                app:cardElevation="0dp"
-                app:strokeWidth="0.5dp"
-                app:strokeColor="@color/outline"
-                app:cardBackgroundColor="@color/surface"
-                app:shapeAppearanceOverlay="@style/ShapeAppearance.Domotica.Card">
+                android:layout_marginBottom="16dp"
+                app:cardElevation="4dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:padding="@dimen/spacing_lg">
+                    android:orientation="vertical"
+                    android:padding="20dp">
 
-                    <LinearLayout
-                        android:layout_width="0dp"
+                    <TextView
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
+                        android:text="@string/vinculacion_title"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/vinculacion_title"
-                            android:textSize="@dimen/text_md"
-                            android:textStyle="bold"
-                            android:textColor="@color/text_primary" />
-
-                        <TextView
-                            android:id="@+id/tvVinculacion"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/spacing_xs"
-                            android:text="@string/checking_binding"
-                            android:textSize="@dimen/text_sm"
-                            android:textColor="@color/text_secondary" />
-
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="8dp"
-                        android:layout_height="8dp"
-                        android:layout_marginStart="@dimen/spacing_md"
-                        android:background="@drawable/shape_circle"
-                        android:backgroundTint="@color/success" />
+                    <TextView
+                        android:id="@+id/tvVinculacion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="@string/checking_binding"
+                        android:textSize="14sp" />
 
                 </LinearLayout>
 
@@ -91,84 +65,70 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/spacing_lg"
-                app:cardElevation="0dp"
-                app:strokeWidth="0.5dp"
-                app:strokeColor="@color/outline"
-                app:cardBackgroundColor="@color/surface"
-                app:shapeAppearanceOverlay="@style/ShapeAppearance.Domotica.Card">
+                android:layout_marginBottom="16dp"
+                app:cardElevation="4dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="@dimen/spacing_xl">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <View
-                            android:id="@+id/ledIndicator"
-                            android:layout_width="@dimen/led_size"
-                            android:layout_height="@dimen/led_size"
-                            android:background="@drawable/shape_circle"
-                            android:backgroundTint="@color/led_off"
-                            android:elevation="2dp" />
-
-                        <TextView
-                            android:id="@+id/tvLedState"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/spacing_md"
-                            android:text="@string/led_unknown"
-                            android:textSize="@dimen/text_lg"
-                            android:textStyle="bold"
-                            android:textColor="@color/text_primary" />
-
-                    </LinearLayout>
-
-                    <com.google.android.material.switchmaterial.SwitchMaterial
-                        android:id="@+id/switchLed"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/spacing_xl"
-                        android:enabled="false"
-                        android:thumbTintMode="src_atop"
-                        app:thumbTint="@color/text_tertiary"
-                        app:trackTint="@color/surface_container" />
+                    android:padding="24dp">
 
                     <TextView
+                        android:id="@+id/tvLedState"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/spacing_md"
-                        android:text="@string/led_hint"
-                        android:textSize="@dimen/text_sm"
-                        android:textColor="@color/text_tertiary" />
+                        android:text="@string/led_unknown"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/btnOn"
+                            android:layout_width="0dp"
+                            android:layout_height="56dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_weight="1"
+                            android:backgroundTint="@color/btn_on"
+                            android:enabled="false"
+                            android:text="@string/btn_on"
+                            android:textColor="@android:color/white"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <Button
+                            android:id="@+id/btnOff"
+                            android:layout_width="0dp"
+                            android:layout_height="56dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_weight="1"
+                            android:backgroundTint="@color/btn_off"
+                            android:enabled="false"
+                            android:text="@string/btn_off"
+                            android:textColor="@android:color/white"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/tvLastUpdate"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:paddingVertical="@dimen/spacing_sm">
-
-                <TextView
-                    android:id="@+id/tvLastUpdate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_sm"
-                    android:textColor="@color/text_tertiary"
-                    android:gravity="center" />
-
-            </LinearLayout>
+                android:layout_gravity="center"
+                android:textSize="12sp"
+                android:textColor="@color/secondary_text" />
 
         </LinearLayout>
 
