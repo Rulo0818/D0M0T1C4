@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "303987201975",
+    "firebase_url": "https://comdomoticaapp-default-rtdb.firebaseio.com",
+    "project_id": "comdomoticaapp",
+    "storage_bucket": "comdomoticaapp.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:303987201975:android:99c5b27f9bbb18b2b3ba32",
+        "android_client_info": {
+          "package_name": "com.domotica.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4U131RkqvYYUSeC6s85wuoto8W8f5fP0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

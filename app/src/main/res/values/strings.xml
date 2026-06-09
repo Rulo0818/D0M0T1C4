@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Domotica</string>
+    <string name="app_subtitle">Control Inteligente</string>
+
+    <!-- Login -->
+    <string name="login_title">Inicia sesión para continuar</string>
+    <string name="email_hint">Correo electrónico</string>
+    <string name="password_hint">Contraseña</string>
+    <string name="btn_login">Iniciar sesión</string>
+    <string name="go_to_register">¿No tienes cuenta? Regístrate</string>
+
+    <!-- Register -->
+    <string name="register_title">Crear cuenta</string>
+    <string name="name_hint">Nombre completo</string>
+    <string name="confirm_password_hint">Confirmar contraseña</string>
+    <string name="btn_register">Registrarse</string>
+    <string name="go_to_login">¿Ya tienes cuenta? Inicia sesión</string>
+
+    <!-- Dashboard -->
+    <string name="dashboard_title">Panel de control</string>
+    <string name="vinculacion_title">Estado de vinculación</string>
+    <string name="checking_binding">Verificando…</string>
+    <string name="led_unknown">LED: ---</string>
+    <string name="btn_on">ON</string>
+    <string name="btn_off">OFF</string>
+    <string name="btn_logout">Cerrar sesión</string>
+</resources>
