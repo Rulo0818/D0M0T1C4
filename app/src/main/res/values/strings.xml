@@ -25,4 +25,5 @@
     <string name="btn_on">ON</string>
     <string name="btn_off">OFF</string>
     <string name="btn_logout">Cerrar sesión</string>
+    <string name="led_hint">Desliza para controlar el LED</string>
 </resources>

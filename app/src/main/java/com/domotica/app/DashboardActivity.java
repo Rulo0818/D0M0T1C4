@@ -1,19 +1,21 @@
 package com.domotica.app;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.ViewCompat;
 
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -26,13 +28,15 @@ import com.domotica.app.data.DeviceRepository;
 public class DashboardActivity extends AppCompatActivity {
 
     private TextView tvVinculacion, tvLedState, tvLastUpdate;
-    private Button btnOn, btnOff;
+    private View ledIndicator;
+    private SwitchMaterial switchLed;
     private ProgressBar progressBar;
     private AuthRepository authRepo;
     private DeviceRepository deviceRepo;
     private String currentDeviceId;
     private ValueEventListener deviceListener;
     private DatabaseReference deviceRef;
+    private boolean isUpdatingFromFirebase = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,12 +51,15 @@ public class DashboardActivity extends AppCompatActivity {
         tvVinculacion = findViewById(R.id.tvVinculacion);
         tvLedState = findViewById(R.id.tvLedState);
         tvLastUpdate = findViewById(R.id.tvLastUpdate);
-        btnOn = findViewById(R.id.btnOn);
-        btnOff = findViewById(R.id.btnOff);
+        ledIndicator = findViewById(R.id.ledIndicator);
+        switchLed = findViewById(R.id.switchLed);
         progressBar = findViewById(R.id.progressBar);
 
-        btnOn.setOnClickListener(v -> setLed(1));
-        btnOff.setOnClickListener(v -> setLed(0));
+        switchLed.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (!isUpdatingFromFirebase) {
+                setLed(isChecked ? 1 : 0);
+            }
+        });
 
         checkBinding();
     }
@@ -74,16 +81,14 @@ public class DashboardActivity extends AppCompatActivity {
                     currentDeviceId = deviceId;
                     tvVinculacion.setText("Vinculado con: " + deviceId);
                     tvVinculacion.setTextColor(
-                            getColor(android.R.color.holo_green_dark));
-                    btnOn.setEnabled(true);
-                    btnOff.setEnabled(true);
+                            getColor(R.color.success));
+                    switchLed.setEnabled(true);
                     listenDeviceChanges(deviceId);
                 } else {
                     tvVinculacion.setText("No vinculado a ningún dispositivo");
                     tvVinculacion.setTextColor(
-                            getColor(android.R.color.holo_red_dark));
-                    btnOn.setEnabled(false);
-                    btnOff.setEnabled(false);
+                            getColor(R.color.error));
+                    switchLed.setEnabled(false);
                     tvLedState.setText("LED: ---");
                     tvLastUpdate.setText("");
                 }
@@ -93,8 +98,7 @@ public class DashboardActivity extends AppCompatActivity {
             public void onError(Exception e) {
                 progressBar.setVisibility(View.GONE);
                 tvVinculacion.setText("Error al verificar vinculación");
-                btnOn.setEnabled(false);
-                btnOff.setEnabled(false);
+                switchLed.setEnabled(false);
                 tvLedState.setText("LED: ---");
                 tvLastUpdate.setText("");
             }
@@ -111,21 +115,37 @@ public class DashboardActivity extends AppCompatActivity {
 
                 if (led != null) {
                     boolean isOn = led == 1;
+                    isUpdatingFromFirebase = true;
+                    switchLed.setChecked(isOn);
+                    isUpdatingFromFirebase = false;
+
                     tvLedState.setText(isOn ? "LED: ENCENDIDO" : "LED: APAGADO");
                     tvLedState.setTextColor(getColor(
-                            isOn ? android.R.color.holo_green_dark
-                                 : android.R.color.darker_gray));
-                    btnOn.setEnabled(true);
-                    btnOff.setEnabled(true);
+                            isOn ? R.color.led_on : R.color.text_tertiary));
+
+                    int ledColor = getColor(isOn ? R.color.led_on : R.color.text_tertiary);
+                    ViewCompat.setBackgroundTintList(ledIndicator,
+                            ColorStateList.valueOf(ledColor));
+
+                    switchLed.setEnabled(true);
                 } else {
+                    isUpdatingFromFirebase = true;
+                    switchLed.setChecked(false);
+                    isUpdatingFromFirebase = false;
+
                     tvLedState.setText("LED: esperando ESP32...");
-                    tvLedState.setTextColor(getColor(android.R.color.darker_gray));
+                    tvLedState.setTextColor(getColor(R.color.text_tertiary));
+
+                    ViewCompat.setBackgroundTintList(ledIndicator,
+                            ColorStateList.valueOf(getColor(R.color.text_tertiary)));
                 }
 
                 if (Boolean.TRUE.equals(online)) {
                     tvLastUpdate.setText("ESP32 en línea");
+                    tvLastUpdate.setTextColor(getColor(R.color.success));
                 } else {
                     tvLastUpdate.setText("ESP32 desconectado");
+                    tvLastUpdate.setTextColor(getColor(R.color.text_tertiary));
                 }
             }
 
@@ -145,8 +165,7 @@ public class DashboardActivity extends AppCompatActivity {
             return;
         }
 
-        btnOn.setEnabled(false);
-        btnOff.setEnabled(false);
+        switchLed.setEnabled(false);
 
         deviceRepo.setLed(currentDeviceId, state, (success, error) -> {
             if (success) {
@@ -154,8 +173,7 @@ public class DashboardActivity extends AppCompatActivity {
                         state == 1 ? "LED encendido" : "LED apagado",
                         Toast.LENGTH_SHORT).show();
             } else {
-                btnOn.setEnabled(true);
-                btnOff.setEnabled(true);
+                switchLed.setEnabled(true);
                 String msg = error != null ? error.getMessage() : "Error desconocido";
                 tvLedState.setText("Error Firebase: " + msg);
                 Toast.makeText(DashboardActivity.this,
@@ -165,6 +183,10 @@ public class DashboardActivity extends AppCompatActivity {
         });
 
         tvLedState.setText(state == 1 ? "LED: ENCENDIDO" : "LED: APAGADO");
+
+        int ledColor = getColor(state == 1 ? R.color.led_on : R.color.text_tertiary);
+        ViewCompat.setBackgroundTintList(ledIndicator,
+                ColorStateList.valueOf(ledColor));
     }
 
     private void confirmLogout() {
